@@ -67,6 +67,15 @@ function App() {
       <Message>
         <MessageFile name="Andre.zip" extension="zip" />
       </Message>
+      <Message self={false}>
+        <MessageFile
+          self={false}
+          file="https://files-whatsapp.s3.amazonaws.com/pdf/396/Guia+M%C3%A9dico+Unimed+Itatiba.pdf"
+          name="Guia_medico-OUT-2017-OK.cdr"
+          extension="pdf"
+          bytes={123154}
+        />
+      </Message>
     </Container>
   );
 }

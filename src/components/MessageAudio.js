@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -43,93 +43,104 @@ function MessageAudio({ duration, audio, self = true }) {
   }
 
   return (
-    <Grid
-      style={{
-        width: "20vw",
-        display: "flex",
-        alignItems: "flex-end",
-        padding: "3px",
-        paddingRight: "15px",
-      }}
-      container
-      spacing={1}
-    >
-      <Grid item xs={3} style={{ display: self ? "initial" : "none" }}>
-        <Avatar style={{ width: 55, height: 55 }}>
-          <Person fontSize="large" />
-        </Avatar>
-      </Grid>
-      <Grid item xs={2} style={{ placeSelf: "center" }}>
-        <ButtonBase
-          onClick={() => (Boolean(playAudio) ? _playPause() : _playAudio())}
-          color="primary"
-          size="small"
-        >
-          {Boolean(playAudio) ? (
-            <PauseRounded fontSize="large" />
-          ) : (
-            <PlayArrowRounded fontSize="large" />
-          )}
-        </ButtonBase>
-      </Grid>
-      <Grid item xs={7}>
-        <Box
-          width="100%"
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Slider
-            style={{ color: "#79886D" }}
-            max={durationAudio}
-            value={currentAudio}
-            step={0.00000001}
-            onChange={(e, value) => {
-              player.current.currentTime = value;
-            }}
-          />
-          <Box
-            marginTop="5px"
-            display="flex"
-            justifyContent="space-between"
-            width="100%"
-            color="rgba(0, 0, 0, 0.45)"
-          >
-            <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
-              {currentString}
-            </Typography>
-            <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
-              {_myDate.getDate("HH:mm")}
-            </Typography>
-          </Box>
-        </Box>
-      </Grid>
+    <Fragment>
       <Grid
-        item
-        xs={3}
-        style={{ display: !self ? "flex" : "none", justifyContent: "flex-end" }}
-      >
-        <Avatar style={{ width: 55, height: 55 }}>
-          <Person fontSize="large" />
-        </Avatar>
-      </Grid>
-      <audio
-        style={{ display: "none" }}
-        ref={player}
-        src={audio}
-        onEnded={() => {
-          setPlayAudio(false);
-          setCurrentAudio(0);
+        style={{
+          width: "20vw",
+          display: "flex",
+          alignItems: "center",
+          padding: "3px",
+          paddingRight: "15px",
         }}
-        onDurationChange={({ currentTarget: { duration } }) =>
-          _setDurationAudio(duration)
-        }
-        onTimeUpdate={({ currentTarget: { currentTime } }) =>
-          _setCurrentAudio(currentTime)
-        }
-      />
-    </Grid>
+        container
+        spacing={1}
+      >
+        <Grid item xs={3} style={{ display: self ? "initial" : "none" }}>
+          <Avatar style={{ width: 55, height: 55 }}>
+            <Person fontSize="large" />
+          </Avatar>
+        </Grid>
+        <Grid item xs={2} style={{ placeSelf: "center" }}>
+          <ButtonBase
+            onClick={() => (Boolean(playAudio) ? _playPause() : _playAudio())}
+            color="primary"
+            size="small"
+          >
+            {Boolean(playAudio) ? (
+              <PauseRounded fontSize="large" />
+            ) : (
+              <PlayArrowRounded fontSize="large" />
+            )}
+          </ButtonBase>
+        </Grid>
+        <Grid item xs={7}>
+          <Box
+            width="100%"
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Slider
+              style={{ color: "#79886D" }}
+              max={durationAudio}
+              value={currentAudio}
+              step={0.00000001}
+              onChange={(e, value) => {
+                player.current.currentTime = value;
+              }}
+            />
+          </Box>
+        </Grid>
+        <Grid
+          item
+          xs={3}
+          style={{
+            display: !self ? "flex" : "none",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Avatar style={{ width: 55, height: 55 }}>
+            <Person fontSize="large" />
+          </Avatar>
+        </Grid>
+        <audio
+          style={{ display: "none" }}
+          ref={player}
+          src={audio}
+          onEnded={() => {
+            setPlayAudio(false);
+            setCurrentAudio(0);
+          }}
+          onDurationChange={({ currentTarget: { duration } }) =>
+            _setDurationAudio(duration)
+          }
+          onTimeUpdate={({ currentTarget: { currentTime } }) =>
+            _setCurrentAudio(currentTime)
+          }
+        />
+      </Grid>
+      <Box
+        marginTop="-20px"
+        width="60%"
+        display="flex"
+        marginLeft={self ? "40%" : "16%"}
+      >
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          width="100%"
+          color="rgba(0, 0, 0, 0.45)"
+        >
+          <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
+            {currentString}
+          </Typography>
+          <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
+            {_myDate.getDate("HH:mm")}
+          </Typography>
+        </Box>
+      </Box>
+    </Fragment>
   );
 }
 

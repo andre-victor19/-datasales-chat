@@ -69,7 +69,7 @@ function MessageFile({
               style={{
                 backgroundImage: `url(${thumbnail})`,
                 backgroundSize: "cover",
-                backgroundColor: "#FFF",
+                backgroundColor: "#f0f0f0",
               }}
               borderRadius="5px 5px 0px 0px"
               height={100}
