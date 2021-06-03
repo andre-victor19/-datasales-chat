@@ -12,6 +12,7 @@ function MessageText({ text }) {
     >
       {text}
       <Box
+        marginTop="5px"
         display="flex"
         justifyContent="flex-end"
         width="100%"

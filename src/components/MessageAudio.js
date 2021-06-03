@@ -90,6 +90,7 @@ function MessageAudio({ duration, audio, self = true }) {
             }}
           />
           <Box
+            marginTop="5px"
             display="flex"
             justifyContent="space-between"
             width="100%"

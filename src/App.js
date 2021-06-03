@@ -48,7 +48,24 @@ function App() {
         />
       </Message>
       <Message>
-        <MessageFile />
+        <MessageFile name="Andre.xlsx" extension="xlsx" />
+      </Message>
+      <Message self={false}>
+        <MessageFile self={false} name="Andre.doc" extension="doc" />
+      </Message>
+      <Message self={false}>
+        <MessageFile self={false} name="Andre.pptx" extension="pptx" />
+      </Message>
+      <Message>
+        <MessageFile
+          file="https://files-whatsapp.s3.amazonaws.com/pdf/396/Teste.pdf"
+          name="Andre.pdf"
+          extension="pdf"
+          bytes={123154}
+        />
+      </Message>
+      <Message>
+        <MessageFile name="Andre.zip" extension="zip" />
       </Message>
     </Container>
   );
