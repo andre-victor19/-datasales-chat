@@ -65,7 +65,6 @@ function MessageVideo({ video, caption, onClick }) {
         >
           <Fab
             style={{ backgroundColor: "rgba(0, 0, 0, 0.35)", color: "#fff" }}
-            onClick={onClick}
           >
             <PlayArrowRounded fontSize="large" />
           </Fab>

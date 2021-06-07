@@ -1,7 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
 
-export default function Message({ children, self = true }) {
+function Message({
+  children,
+  self = true,
+  bgColorSelf = "#dcf8c6",
+  bgColorNoSelf = "#fff",
+}) {
   return (
     <Box
       flex="0 0 auto"
@@ -25,7 +31,7 @@ export default function Message({ children, self = true }) {
         boxShadow="0 1px .5px rgba(0, 0, 0, 0.13)"
         padding="3px"
         borderRadius="7.5px"
-        bgcolor={self ? "#dcf8c6" : "#fff"}
+        bgcolor={self ? bgColorSelf : bgColorNoSelf}
         style={{ overflowWrap: "break-word", whiteSpace: "pre-wrap" }}
       >
         {children}
@@ -33,3 +39,12 @@ export default function Message({ children, self = true }) {
     </Box>
   );
 }
+
+Message.propTypes = {
+  children: PropTypes.any.isRequired,
+  self: PropTypes.bool,
+  bgColorSelf: PropTypes.string,
+  bgColorNoSelf: PropTypes.string,
+};
+
+export default Message;

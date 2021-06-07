@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment } from "react";
+import React, { useEffect, useState, useRef, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -13,12 +13,25 @@ import MyDate from "../helpers/Date";
 
 const _myDate = new MyDate();
 
-function MessageAudio({ duration, audio, self = true }) {
+function MessageAudio({
+  duration = 0,
+  audio,
+  self = true,
+  avatar,
+  onPlay,
+  onPause,
+}) {
   const player = useRef(null),
     [playAudio, setPlayAudio] = useState(false),
     [durationAudio, setDurationAudio] = useState(duration),
     [currentString, setCurrentString] = useState("0:00"),
     [currentAudio, setCurrentAudio] = useState(0);
+
+  useEffect(() => {
+    const newCurrent = _myDate.duration(durationAudio),
+      stringCurrent = `${newCurrent.minutes}:${newCurrent.seconds}`;
+    setCurrentString(stringCurrent);
+  }, [durationAudio]);
 
   function _setDurationAudio(duration) {
     const tempDuration = duration === Infinity ? durationAudio : duration;
@@ -27,19 +40,21 @@ function MessageAudio({ duration, audio, self = true }) {
 
   function _setCurrentAudio(current) {
     setCurrentAudio(current);
-    const newCurrent = _myDate.duration(current);
-    const stringCurrent = `${newCurrent.minutes}:${newCurrent.seconds}`;
+    const newCurrent = _myDate.duration(current),
+      stringCurrent = `${newCurrent.minutes}:${newCurrent.seconds}`;
     setCurrentString(stringCurrent);
   }
 
   function _playAudio() {
     player.current.play();
     setPlayAudio(true);
+    onPlay();
   }
 
   function _playPause() {
     player.current.pause();
     setPlayAudio(false);
+    onPause();
   }
 
   return (
@@ -49,14 +64,14 @@ function MessageAudio({ duration, audio, self = true }) {
           width: "20vw",
           display: "flex",
           alignItems: "center",
-          padding: "3px",
-          paddingRight: "15px",
+          padding: 3,
+          paddingRight: self ? 15 : 0,
         }}
         container
         spacing={1}
       >
         <Grid item xs={3} style={{ display: self ? "initial" : "none" }}>
-          <Avatar style={{ width: 55, height: 55 }}>
+          <Avatar src={avatar} style={{ width: 55, height: 55 }}>
             <Person fontSize="large" />
           </Avatar>
         </Grid>
@@ -85,7 +100,7 @@ function MessageAudio({ duration, audio, self = true }) {
               style={{ color: "#79886D" }}
               max={durationAudio}
               value={currentAudio}
-              step={0.00000001}
+              step={0.0000000001}
               onChange={(e, value) => {
                 player.current.currentTime = value;
               }}
@@ -100,7 +115,7 @@ function MessageAudio({ duration, audio, self = true }) {
             justifyContent: "flex-end",
           }}
         >
-          <Avatar style={{ width: 55, height: 55 }}>
+          <Avatar src={avatar} style={{ width: 55, height: 55 }}>
             <Person fontSize="large" />
           </Avatar>
         </Grid>
@@ -148,6 +163,9 @@ MessageAudio.propTypes = {
   duration: PropTypes.number.isRequired,
   audio: PropTypes.string.isRequired,
   self: PropTypes.bool.isRequired,
+  avatar: PropTypes.string,
+  onPlay: PropTypes.func,
+  onPause: PropTypes.func,
 };
 
 export default MessageAudio;

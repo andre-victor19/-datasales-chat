@@ -5,7 +5,7 @@ import MyDate from "../helpers/Date";
 
 const _myDate = new MyDate();
 
-function MessageImage({ image, caption, onClick }) {
+function MessageImage({ image = "", caption = "", onClick }) {
   return (
     <Box maxWidth="20vw">
       <img

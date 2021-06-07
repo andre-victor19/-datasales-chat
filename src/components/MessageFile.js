@@ -15,7 +15,7 @@ import PowerPointIcon from "../assets/icons/powerpoint.svg";
 import { pdf as PdfIcon, file as FileIcon } from "../assets/icons/otherIcons";
 
 // Styles
-import "../styles/MessageFile.css";
+import "./styles/MessageFile.css";
 
 const _myDate = new MyDate();
 
@@ -117,17 +117,21 @@ function MessageFile({
         width="100%"
         color="rgba(0, 0, 0, 0.45)"
       >
-        <Box width="100%" display="flex" alignItems="center">
-          {newExtension === "PDF" && (
-            <Typography className="pages">
-              {numPages} {numPages <= 1 ? "página" : "páginas"}
+        {extension ? (
+          <Box width="100%" display="flex" alignItems="center">
+            {newExtension === "PDF" && (
+              <Typography className="pages">
+                {numPages} {numPages <= 1 ? "página" : "páginas"}
+              </Typography>
+            )}
+            <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
+              {newExtension}
             </Typography>
-          )}
-          <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
-            {newExtension}
-          </Typography>
-          <Typography className="bytes">{formatBytes(bytes, 1)}</Typography>
-        </Box>
+            <Typography className="bytes">{formatBytes(bytes, 1)}</Typography>
+          </Box>
+        ) : (
+          <span />
+        )}
         <Typography style={{ fontSize: 11, paddingRight: "3px" }}>
           {_myDate.getDate("HH:mm")}
         </Typography>
